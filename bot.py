@@ -1,8 +1,8 @@
-'''
-Author : Sankalp Narula
-Date : 30-11-2021 Format (dd-mm-yyyy)
-Time: 01:30 am EST
-'''
+'''	
+Author : Sankalp Narula	
+Date : 30-11-2021 Format (dd-mm-yyyy)	
+Time: 01:30 am EST	
+'''	
 
 import requests
 import win32com.client
@@ -17,11 +17,15 @@ inbox = outlook.GetDefaultFolder(6) # "6" refers to the index of a folder - in t
                                     # any other folder
 messages = inbox.Items
 received_dt = datetime.today() 
-received_dt = received_dt.strftime('%m/%d/%Y')+ " 00:00 AM"
+received_dt = received_dt.strftime('%m/%d/%Y')+ " 00:01 AM"
 print(received_dt)
 messages = messages.Restrict("[ReceivedTime] >= '" + received_dt + "'")
+
 messages = messages.Restrict("[SenderEmailAddress] = 'do-not-reply@uwaterloo.ca'")
+#print(a.body)
+a = messages.GetFirst()
 message = messages.Restrict("[Subject] = 'Welcome to Campus - Thank you for completing your COVID-19 screening'")
+print(a)
 if message.GetFirst():
     print("already done for today")
 else:
@@ -49,3 +53,4 @@ else:
     ans = {"q8":"No","q1":"No","q2":"No","q3":"No","q4":"No","q5":"No","q6":"No","q7":"No","q8":"No","ukey":str(ukey),"utime":int(utime),"what":"Submit"}
     x= requests.post(url,data = ans)
     print(x.text)
+
